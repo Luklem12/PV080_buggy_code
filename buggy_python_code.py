@@ -2,6 +2,7 @@ import sys
 import os
 import yaml
 import flask
+import urllib
 
 app = flask.Flask(__name__)
 
@@ -14,14 +15,18 @@ def index():
 
         
 CONFIG = {"API_KEY": "771df488714111d39138eb60df756e6b"}
-class Person(object):
-    def __init__(self, name):
+class Person:
+    def  __init__(self, name):
         self.name = name
 
+    def rename(self, name):
+        self.name = name
 
+"""
+    prints the nametag of a person
+"""
 def print_nametag(format_string, person):
     print(format_string.format(person=person))
-
 
 def fetch_website(urllib_version, url):
     # Import the requested version (2 or 3) of urllib
@@ -40,9 +45,9 @@ def load_yaml(filename):
     deserialized_data = yaml.load(stream, Loader=yaml.Loader) #deserializing data
     return deserialized_data
     
-def authenticate(password):
+def authenticate(password_input):
     # Assert that the password is correct
-    assert password == "Iloveyou", "Invalid password!"
+    assert password_input == "Iloveyou", "Invalid password!"
     print("Successfully authenticated!")
 
 if __name__ == '__main__':
